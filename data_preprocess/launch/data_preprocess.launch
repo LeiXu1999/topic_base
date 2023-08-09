@@ -1,0 +1,18 @@
+<launch>
+  <node name="map_server" pkg="map_server" type="map_server" output="screen" args="$(find data_preprocess)/config/map.yaml">
+  </node>
+
+  <node name="data_preprocess" pkg="data_preprocess" type="data_preprocess" output="screen">
+     <rosparam subst_value="true">
+       imu_topic_name: /imu
+       odom_topic_name: /odom
+       pose_topic_name: /pose
+       twist_topic_name: /twist
+       map_topic_name: /map
+       fusion_odom_topic_name: /fusion_odom
+     </rosparam>
+  </node>
+
+  <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find data_preprocess)/config/rviz.rviz" />
+
+</launch>
